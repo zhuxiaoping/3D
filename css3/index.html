@@ -1,0 +1,206 @@
+<!DOCTYPE>
+<html>
+<meta name="viewport" content="width=device-width,user-scalable=0" />
+<head></head>
+<style>
+#wrap{ 
+	margin: 50px auto 0;
+    height: 200px;
+    width: 400px;
+    -webkit-perspective: 800;
+    -webkit-perspective-origin: -55% -60%;
+    -moz-perspective: 200;
+    -moz-perspective-origin: 50% 200px;
+}
+.square-m {
+    position: relative;
+    width:400px;
+    height:200px;
+    -webkit-transition: -webkit-transform 2s linear;
+    -webkit-transform-style: preserve-3d;
+    -moz-transition: -moz-transform 1s linear;
+    -moz-transform-style: preserve-3d;
+}
+
+.square-m .face {
+    position: absolute;
+    background-color: rgba(50, 50, 50, 0.7);
+    font-size: 27px;
+    color: #fff;
+    border: 1px solid #fff;
+    border-radius: 3px;
+    text-align: center;
+    line-height: 200px;
+}
+
+.square-m  .shap .one {
+    -webkit-transform: rotateX(90deg) translateZ(100px);
+    -moz-transform: rotateX(90deg) translateZ(100px);
+     height: 200px;
+    width: 400px;
+
+}
+
+.square-m .shap .two {
+    -webkit-transform: translateZ(100px);
+    -moz-transform: translateZ(100px);
+     height: 200px;
+    width: 400px;
+    opacity: 0;
+}
+
+.square-m .shap .three {
+    -webkit-transform: rotateY(90deg) translateZ(300px);
+    -moz-transform: rotateY(90deg) translateZ(300px);
+     height: 200px;
+    width: 200px;
+}
+
+.square-m .shap .four {
+    -webkit-transform: rotateY(180deg) translateZ(100px);
+    -moz-transform: rotateY(180deg) translateZ(100px);
+     height: 200px;
+    width: 400px;
+    opacity: 0;
+}
+
+.square-m .shap .five {
+    -webkit-transform: rotateY(-90deg) translateZ(100px);
+    -moz-transform: rotateY(-90deg) translateZ(100px);
+     height: 200px;
+    width: 200px;
+}
+
+.square-m .shap .six {
+    -webkit-transform: rotateX(-90deg) rotate(180deg) translateZ(100px);
+    -moz-transform: rotateX(-90deg) rotate(180deg) translateZ(100px);
+     height: 200px;
+    width: 400px;
+}
+
+.square-group{position: absolute;bottom: 0;width: 50px;height: 100px;}
+.square-s {
+    position: absolute;
+    left: 0px;
+    height: 10px;
+    width: 80px;
+    -webkit-transform: rotateY(90deg);
+    -webkit-transform-style: preserve-3d;
+    -moz-transition: -moz-transform 1s linear;
+    -moz-transform-style: preserve-3d;
+}
+
+
+.square-s  .shap .face {
+    position: absolute;
+    background-color: #52b363;
+    font-size: 6px;
+    color: #000;
+    border: 1px solid rgba(255,255,255,.5);
+    border-radius: 2px;
+    text-align: center;
+}
+
+.square-s  .shap .one {
+    -webkit-transform: rotateX(90deg) translateZ(25px);
+    -moz-transform: rotateX(90deg) translateZ(25px);
+     height: 50px;
+    width: 80px;
+}
+
+.square-s  .shap .two {
+    -webkit-transform: translateZ(25px);
+    -moz-transform: translateZ(25px);
+     height: 10px;
+    width: 80px;
+}
+
+.square-s .shap .three {
+    -webkit-transform: rotateY(90deg) translateZ(55px);
+    -moz-transform: rotateY(90deg) translateZ(55px);
+     height: 10px;
+    width: 50px;
+}
+
+.square-s .shap .four {
+    -webkit-transform: rotateY(180deg) translateZ(25px);
+    -moz-transform: rotateY(180deg) translateZ(25px);
+     height: 10px;
+    width: 80px;
+}
+
+.square-s .shap .five {
+    -webkit-transform: rotateY(-90deg) translateZ(25px);
+    -moz-transform: rotateY(-90deg) translateZ(25px);
+     height: 10px;
+    width: 50px;
+}
+
+.square-s .shap .six {
+    -webkit-transform: rotateX(-90deg) rotate(180deg) translateZ(-15px);
+    -moz-transform: rotateX(-90deg) rotate(180deg) translateZ(-15px);
+     height: 50px;
+    width: 80px;
+}
+</style>
+<body>
+ <div id="wrap">
+  <div class="square-m">
+   <div class="shap">
+        <div class="face one"></div>
+        <div class="face two"></div>
+        <div class="face three"></div>
+        <div class="face four"></div>
+        <div class="face five"></div>
+        <div class="face six"></div>
+   </div>
+   </div>
+ </div>
+ <div style="margin-top:150px;"><input type='button' value="left" onclick="left()"><input type='button' value="right" onclick="right()"></div>
+   <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="square.js"></script>
+     <script>
+    var props = 'transform WebkitTransform MozTransform OTransform msTransform'
+            .split(' '), prop, el = document.createElement('div');
+
+    for ( var i = 0, l = props.length; i < l; i++) {
+        if (typeof el.style[props[i]] !== "undefined") {
+            prop = props[i];
+            break;
+        }
+    }
+
+    var xAngle = 0, yAngle = 0,zAngle;
+
+    function left(){yAngle -= 180;$('.square-m')[0].style[prop] = "rotateX("
+                        + xAngle + "deg) rotateY("+yAngle+ "deg)";}
+    function right(){yAngle += 180;$('.square-m')[0].style[prop] = "rotateX("
+                        + xAngle + "deg) rotateY("+yAngle+ "deg)";}
+    $('body').keydown(
+            function(evt) {
+                switch (evt.keyCode) {
+                case 37: // lef
+                    yAngle -= 180;
+                    break;
+
+                case 38: // up
+                    xAngle += 90;
+                    break;
+
+                case 39: // right
+                    yAngle += 180;
+                    break;
+
+                case 40: // down
+                    xAngle -= 90;
+                    break;
+                }
+                ;
+                $('.square-m')[0].style[prop] = "rotateX("
+                        + xAngle + "deg) rotateY("+yAngle+ "deg)";
+            });
+var data = [{name:'a01',count:1},{name:'a02',count:2},{name:'a03',count:3},{name:'a04',count:4},{name:'a05',count:5},{name:'a06',count:6},{name:'a07',count:7},{name:'a08',count:8},{name:'a09',count:9},{name:'a10',count:10},{name:'a11',count:10},{name:'a12',count:10}];
+    new squareObj('#wrap .square-m',data);
+</script>
+</body>
+</html>
